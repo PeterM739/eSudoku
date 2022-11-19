@@ -1,0 +1,8 @@
+{
+    "ESudoku": "ESudoku",
+    "CreateNewSudoku": "Create new sudoku",
+    "Check": "Check solution",
+    "Solve half": "Solve half",
+    "Solve": "Solve puzzle",
+    "SolveCheckText": "Are you sure to get the solution"
+}

@@ -1,20 +1,25 @@
-
-<div class="container bg-white w-100">
-    <h1>ESudoku</h1>
+<div class="container bg-white text-center">
+    <div class="row justify-content-center">
+        <h1>ESudoku</h1>
+    </div>
     <br>
-    <table>
-        <tbody>
-            <tr *ngFor="let number of [0,1,2,3,4]">
-                <td *ngFor="let number of [0,1,2,3,4]">a</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-center">
+        <table>
+            <tbody>
+                <tr *ngFor="let number of [0,1,2,3,4,5,6,7,8]">
+                    <td *ngFor="let number of [0,1,2,3,4,5,6,7,8]" class="border">a</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
     <div class="row justify-content-center">
         <button class="col-sm-2 btn border btnLink m-1" (click)="createNewSudoku()">{{ 'CreateNewSudoku' | translate}}</button>
         <button class="col-sm-2 btn border btnLink m-1" (click)="check()">{{ 'Check' | translate}}</button>
         <button class="col-sm-2 btn border btnLink m-1" (click)="solveHalf()">{{ 'SolveHalf' | translate}}</button>
         <button class="col-sm-2 btn border btnLink m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
     </div>
+    <br>
     <ng-template #content let-modal>
         <div class="modal-header justify-content-center">
             <b class="align-center">{{ 'ReasonForDeny' | translate }}</b>
