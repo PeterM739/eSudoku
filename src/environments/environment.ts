@@ -5,7 +5,7 @@
 export const environment = {
   websiteTitle: "eSudoku",
   author: "Peter Mašič",
-  apiUrl: "",
+  apiUrl: "http://localhost:5000/",
   production: false
 };
 

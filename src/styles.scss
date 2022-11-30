@@ -56,6 +56,11 @@ p {
     margin-left: auto;
   }
 
+input {
+  height: 60px !important;
+  width: 60px !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
