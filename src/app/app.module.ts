@@ -30,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
           deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

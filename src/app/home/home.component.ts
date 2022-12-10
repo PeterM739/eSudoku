@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { PuzzleModel } from '../models/puzzle';
@@ -18,22 +18,91 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private sudokuService: SudokuService,
     private formBuilder: UntypedFormBuilder,
     private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
-    this.sudokuService.getTest().subscribe(res => {
+    this.sudokuService.getPuzzle(1).subscribe(res => {
       this.puzzle = res
+      this.buildForm(this.puzzle.grid)
     });
 
-    this.dataForm = this.buildForm(this.puzzle.grid)
   }
 
-  buildForm(grid: number[][]) {
-    const form = this.formBuilder.group({
+  onRightClick(event: MouseEvent, content: any) {
+    event.preventDefault()
+    this.openShowSolution(content)
+  }
+
+  createNewArray() {
+    const solution = [];
+    for (let indexI = 0; indexI < 9; indexI++) {
+      const row = []
+      for (let indexJ = 0; indexJ < 9; indexJ++) {
+        const col = this.dataForm.get(`row${indexI}col${indexJ}`)?.value
+        row.push(col)
+      }
+      solution.push(row)
+    }
+
+    return solution;
+  }
+
+  open(content: any) {
+    this.modalService.open(content)
+  }
+
+  decline() {
+    this.modalService.dismissAll();
+  }
+
+  check() {
+    this.solution = this.createNewArray()
+    if (this.solution === this.puzzle.solution) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  solve() {
+    this.modalService.dismissAll()
+    this.buildForm(this.puzzle.solution)
+    this.cd.detectChanges();
+  }
+
+  getNewSudoku() {
+    this.sudokuService.getPuzzle(2).subscribe(res => {
+      this.puzzle = res
+      this.buildForm(this.puzzle.grid)
+      this.cd.detectChanges();
+    });
+  }
+
+  openShowSolution(getValue: any) {
+    this.modalService.open(getValue)
+  }
+
+  showSolution(row: number, col: number) {
+    this.modalService.dismissAll()
+    if (this.dataForm.get(`row${row}col${col}`)?.value == this.puzzle.solution[row][col]) {
+
+    } else {
+      
+    }
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+
+    localStorage.setItem("language", lang)
+  }
+
+  buildForm(grid: any[][]) {
+    this.dataForm = this.formBuilder.group({
       row0col0: [grid[0][0] ?? ''],
       row0col1: [grid[0][1] ?? ''],
       row0col2: [grid[0][2] ?? ''],
@@ -116,59 +185,5 @@ export class HomeComponent implements OnInit {
       row8col7: [grid[8][7] ?? ''],
       row8col8: [grid[8][8] ?? ''],
     })
-
-    return form
-  }
-
-  // getNewSudoku(difficulty: number) {
-  //   this.sudokuService.getPuzzle(difficulty).subscribe(res => {
-  //     this.puzzle = res
-  //   });
-  // }
-
-  createNewArray() {
-    const solution = [];
-    for (let indexI = 0; indexI < 9; indexI++) {
-      const row = []
-      for (let indexJ = 0; indexJ < 9; indexJ++) {
-        const col = this.dataForm.get(`row${indexI}col${indexJ}`)?.value
-        row.push(col)
-      }
-      solution.push(row)
-    }
-
-    return solution;
-  }
-
-  open(content: any) {
-    this.modalService.open(content)
-  }
-
-  decline() {
-    this.modalService.dismissAll();
-  }
-
-  check() {
-    this.solution = this.createNewArray()
-    if (this.solution === this.puzzle.solution) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  solveHalf(){}
-
-  solve() {
-    this.modalService.dismissAll()
-    this.dataForm = this.buildForm(this.puzzle.solution)
-    this.cd.detectChanges();
-  }
-
-  getNewSudoku(difficulty: number) {
-    this.sudokuService.getTest().subscribe(res => {
-      this.puzzle = res
-      this.cd.detectChanges();
-    });
   }
 }

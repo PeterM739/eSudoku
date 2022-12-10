@@ -2,7 +2,9 @@
     "ESudoku": "ESudoku",
     "CreateNewSudoku": "Naredi nov sudoku",
     "Check": "Preveri rešitev",
-    "Solve half": "Reši polovico",
     "Solve": "Reši sudoku",
-    "SolveCheckText": "Ali ste prepričani, da hočete rešitev"
+    "SolveCheckText": "Ali ste prepričani, da hočete rešitev sudokuja",
+    "SelectLanguage": "Izberi jezik",
+    "YES": "Da",
+    "NO": "Ne"
 }

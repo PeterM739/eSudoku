@@ -1,4 +1,4 @@
 export interface PuzzleModel {
-    solution: number[][],
-    grid: number[][],
+    solution: any[][],
+    grid: any[][],
 }

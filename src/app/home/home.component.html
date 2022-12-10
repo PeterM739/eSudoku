@@ -3,44 +3,71 @@
         <h1>ESudoku</h1>
     </div>
     <br>
-    <div class="text-center">
-        <form [formGroup]="dataForm">
+    <div class="row d-flex justify-content-end">
+        <div class="col-2 text-end">
+            <p>{{ 'SelectLanguage' | translate }}:</p>
+        </div>
+        <div class="col-1 text-center">
+            <select class="form-control text-center" #selectedLang (change)="switchLang(selectedLang.value)">
+                <option *ngFor="let language of translate.getLangs()" [value]="language" class="text-center"
+                  [selected]="language === translate.currentLang">
+                  {{ language }}
+                </option>
+              </select>
+        </div>
+    </div>
+    <br>
+    <div>
+        <form [formGroup]="dataForm" class="d-flex justify-content-center">
             <table>
                 <tbody>
                     <tr *ngFor="let row of [0,1,2,3,4,5,6,7,8]">
                         <td *ngFor="let col of [0,1,2,3,4,5,6,7,8]" class="border">
-                            <input formControlName="row{{row}}col{{col}}">
+                            <div *ngIf="this.puzzle.grid[row][col] != 0; else blank" class="align-middle">
+                                <p>{{puzzle.grid[row][col]}}</p>
+                            </div>
+                            <ng-template #blank>
+                                <div (contextmenu)="onRightClick($event, getValue)">
+                                    <input formControlName="row{{row}}col{{col}}" class="text-center">
+                                </div>
+                            </ng-template>
+                            <ng-template #getValue let-modal>
+                                <div class="modal-body">
+                                    <div class="row justify-content-center">
+                                        <button (click)="showSolution(row, col)" type="button" class="col-sm-4 btn btn-outline-secondary">{{ 'Preveri ali je prava vrednost' | translate }}</button>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </form>
-       
     </div>
     <br>
     <div class="row justify-content-center">
-        <button mat-button  class="col-sm-2 btn border btnLink m-1">{{ 'CreateNewSudoku' | translate}}</button>
+        <button class="col-sm-2 btn btn-primary m-1" (click)="getNewSudoku()">{{ 'CreateNewSudoku' | translate}}</button>
         <!-- <mat-menu #menu="matMenu">
             <button mat-menu-item>Item 1</button>
             <button mat-menu-item>Item 2</button>
         </mat-menu> -->
-        <button class="col-sm-2 btn border btnLink m-1" (click)="check()">{{ 'Check' | translate}}</button>
-        <button class="col-sm-2 btn border btnLink m-1" (click)="solveHalf()">{{ 'SolveHalf' | translate}}</button>
-        <button class="col-sm-2 btn border btnLink m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
+        <button class="col-sm-2 btn btn-primary m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
     </div>
     <br>
     <ng-template #content let-modal>
         <div class="modal-header justify-content-center">
             <b class="align-center">{{ 'ReasonForDeny' | translate }}</b>
         </div>
-        <div class="modal-body">
-            <div class="row justify-content-center">
-                <p>{{ 'SolveCheckText' | translate }}:</p>
+        <div class="modal-body d-flex justify-content-center">
+            <div class="row">
+                <p>{{ 'SolveCheckText' | translate }}</p>
             </div>
         </div>
         <div class="modal-footer justify-content-right">
-            <button type="button" class="btn btn-secondary" (click)="solve()">OK</button>
-            <button type="button" class="btn btn-secondary" (click)="decline()">CANCLE</button>
+            <button type="button" class="btn btn-secondary" (click)="solve()">{{ 'YES' | translate }}</button>
+            <button type="button" class="btn btn-secondary" (click)="decline()">{{ 'NO' | translate}}</button>
         </div>
     </ng-template>
+
+    
 </div>

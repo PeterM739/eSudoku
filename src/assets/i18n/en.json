@@ -2,7 +2,9 @@
     "ESudoku": "ESudoku",
     "CreateNewSudoku": "Create new sudoku",
     "Check": "Check solution",
-    "Solve half": "Solve half",
-    "Solve": "Solve puzzle",
-    "SolveCheckText": "Are you sure to get the solution"
+    "Solve": "Solve sudoku",
+    "SolveCheckText": "Are you sure to get the solution",
+    "SelectLanguage": "Select Language",
+    "YES": "Yes",
+    "NO": "No"
 }
