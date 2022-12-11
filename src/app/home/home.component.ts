@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,8 +13,12 @@ import { SudokuService } from '../services/sudoku.service';
 export class HomeComponent implements OnInit {
   puzzle!: PuzzleModel;
   dataForm!: UntypedFormGroup;
-  solution!: number[][];
-  solutionForm!: UntypedFormBuilder
+  solution!: any[][];
+  solutionForm!: UntypedFormBuilder;
+  currentGrid!: any[][]
+  @ViewChild('successWindow', { static: true }) successWindow!: any;
+  @ViewChild('failedWindow', { static: true }) failedWindow!: any;
+
 
   constructor(
     private modalService: NgbModal,
@@ -32,9 +36,13 @@ export class HomeComponent implements OnInit {
 
   }
 
-  onRightClick(event: MouseEvent, content: any) {
-    event.preventDefault()
-    this.openShowSolution(content)
+  onRightClick(event: MouseEvent, row: number, col: number) {
+    event.preventDefault();
+    if (this.dataForm.get(`row${row}col${col}`)?.value == this.puzzle.solution[row][col]) {
+      this.modalService.open(this.successWindow)
+    } else {
+      this.modalService.open(this.failedWindow)
+    }
   }
 
   createNewArray() {
@@ -68,37 +76,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  solve() {
-    this.modalService.dismissAll()
-    this.buildForm(this.puzzle.solution)
-    this.cd.detectChanges();
-  }
-
-  getNewSudoku() {
-    this.sudokuService.getPuzzle(2).subscribe(res => {
-      this.puzzle = res
-      this.buildForm(this.puzzle.grid)
-      this.cd.detectChanges();
-    });
-  }
-
-  openShowSolution(getValue: any) {
-    this.modalService.open(getValue)
-  }
-
-  showSolution(row: number, col: number) {
-    this.modalService.dismissAll()
-    if (this.dataForm.get(`row${row}col${col}`)?.value == this.puzzle.solution[row][col]) {
-
+  getCssClass(row: number, col: number) {
+    if (this.dataForm.get(`row${row}col${col}`)?.value != ' ') {
+      return this.getBorderCssClass(row, col) + ' ' + 'bgGray'
     } else {
-      
+      return this.getBorderCssClass(row, col) 
     }
-  }
-
-  switchLang(lang: string) {
-    this.translate.use(lang);
-
-    localStorage.setItem("language", lang)
   }
 
   getBorderCssClass(row: number, col: number) {
@@ -106,7 +89,7 @@ export class HomeComponent implements OnInit {
       case 2:
       case 5:
       case 8:
-        if (col == 8 ||col == 5 || col == 2) {
+        if (col == 8 || col == 5 || col == 2) {
           return 'thickBorderBottomLeftSide'
         } else if (col == 0) {
           return 'thickBorderBottomRightSide'
@@ -133,6 +116,30 @@ export class HomeComponent implements OnInit {
         }
     }
   }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+
+    localStorage.setItem("language", lang)
+  }
+
+  solve() {
+    this.modalService.dismissAll()
+    this.buildForm(this.puzzle.solution)
+    this.cd.detectChanges();
+  }
+
+  getNewSudoku(difficulty: number) {
+    this.sudokuService.getPuzzle(difficulty).subscribe(res => {
+      this.puzzle = res
+      this.buildForm(this.puzzle.grid)
+      this.cd.detectChanges();
+    });
+  }
+
+  // openShowSolution(getValue: any) {
+  //   this.modalService.open(getValue)
+  // }
 
   buildForm(grid: any[][]) {
     this.dataForm = this.formBuilder.group({

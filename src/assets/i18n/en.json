@@ -8,5 +8,13 @@
     "YES": "Yes",
     "NO": "No",
     "WelcomeText": "Welcome to eSudoku app",
-    "InstructionText": "Če še ne poznaš pravil, v prazne prostore mreže vstavljej števila od 1 do 9, tako da velja, da se ta števlika ne ponovi v isti vrstici in instem stolpcu ter znotraj manjšega kvadratka."
+    "InstructionText": "Če še ne poznaš pravil, v prazne prostore mreže vstavljej števila od 1 do 9, tako da velja, da se ta števlika ne ponovi v isti vrstici in instem stolpcu ter znotraj manjšega kvadratka.",
+    "SudokuSolution": "Sudoku solution",
+    "SelectDificulty" : "Select difficulty",
+    "Level1" : "Easy",
+    "Level2" : "Intermediate",
+    "Level3" : "Advanced",
+    "HintFailed" : "This number is on right place",
+    "HintSuccess" : "This number is not in that field",
+    "HintText" : "Namig: če ne veš ali si na pravi poti do rešive lahko to preveriš z desnim klikom na številko ki si jo vnesel."
 }

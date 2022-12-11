@@ -8,8 +8,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { MatMenuModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxBootstrapIconsModule, checkCircle, xCircle } from 'ngx-bootstrap-icons';
+
+const icons = {
+  checkCircle,
+  xCircle
+}
 
 @NgModule({
   declarations: [
@@ -21,8 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    //MatMenuModule,
     ReactiveFormsModule,
+    NgxBootstrapIconsModule.pick(icons),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
