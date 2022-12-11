@@ -6,5 +6,7 @@
     "SolveCheckText": "Ali ste prepričani, da hočete rešitev sudokuja",
     "SelectLanguage": "Izberi jezik",
     "YES": "Da",
-    "NO": "Ne"
+    "NO": "Ne",
+    "WelcomeText": "Dobrodošli v aplikaciji eSudoku",
+    "InstructionText": "Če še ne poznaš pravil, v prazne prostore mreže vstavljej števila od 1 do 9, tako da velja, da se ta števlika ne ponovi v isti vrstici in instem stolpcu ter znotraj manjšega kvadratka."
 }

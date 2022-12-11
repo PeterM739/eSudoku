@@ -7,3 +7,55 @@ p {
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.thickBorderBottom {
+    border-bottom: 3px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.normalBorder {
+    border: 1px solid black
+}
+
+.thickBorderTop {
+    border-top: 3px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.thickBorderBottomLeftSide {
+    border-bottom: 3px solid black;
+    border-left: 1px solid black;
+    border-right: 3px solid black;
+}
+
+.thickBorderBottomRightSide {
+    border-bottom: 3px solid black;
+    border-right: 1px solid black;
+    border-left: 3px solid black;
+}
+
+.thickBorderTopLeftSide {
+    border-top: 3px solid black;
+    border-left: 1px solid black;
+    border-right: 3px solid black;
+}
+
+.thickBorderTopRightSide {
+    border-top: 3px solid black;
+    border-right: 1px solid black;
+    border-left: 3px solid black;
+}
+
+.thickBorderLeft {
+    border-right: 3px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.thickBorderRight {
+    border-left: 3px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}

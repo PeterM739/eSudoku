@@ -101,6 +101,39 @@ export class HomeComponent implements OnInit {
     localStorage.setItem("language", lang)
   }
 
+  getBorderCssClass(row: number, col: number) {
+    switch (row) {
+      case 2:
+      case 5:
+      case 8:
+        if (col == 8 ||col == 5 || col == 2) {
+          return 'thickBorderBottomLeftSide'
+        } else if (col == 0) {
+          return 'thickBorderBottomRightSide'
+        } else {
+          return 'thickBorderBottom'
+        }
+
+      case 0:
+        if (col == 8 ||col == 5 || col == 2) {
+          return 'thickBorderTopLeftSide'
+        } else if (col == 0) {
+          return 'thickBorderTopRightSide'
+        } else {
+          return 'thickBorderTop'
+        }
+
+      default:
+        if (col == 8 ||col == 5 || col == 2) {
+          return 'thickBorderLeft'
+        } else if (col == 0) {
+          return 'thickBorderRight'
+        } else {
+          return 'normalBorder'
+        }
+    }
+  }
+
   buildForm(grid: any[][]) {
     this.dataForm = this.formBuilder.group({
       row0col0: [grid[0][0] ?? ''],
