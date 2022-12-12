@@ -9,11 +9,11 @@
         </div>
     </div>
     <br>
-    <div class="row d-flex justify-content-end">
-        <div class="col-2 text-end">
+    <div class="row justify-content-end">
+        <div class="col-sm-3 text-end">
             <p>Language:</p>
         </div>
-        <div class="col-1 text-center">
+        <div class="col-sm-1 text-center">
             <select class="form-control text-center" #selectedLang (change)="switchLang(selectedLang.value)">
                 <option *ngFor="let language of translate.getLangs()" [value]="language" class="text-center"
                   [selected]="language === translate.currentLang">
@@ -59,7 +59,7 @@
             <a ngbDropdownItem (click)="getNewSudoku(2)">{{ 'Level2' | translate }}</a>
             <a ngbDropdownItem (click)="getNewSudoku(3)">{{ 'Level3' | translate }}</a>
         </div>
-        <button class="col-sm-2 btn btn-primary m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
+        <button class="col-sm-2 btn btn-primary m-1 " (click)="open(content)">{{ 'Solve' | translate}}</button>
         <!-- <button class="col-sm-2 btn btn-primary m-1" (click)="hint()">{{ 'Hint' | translate}}</button> -->
     </div>
     <br>

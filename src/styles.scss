@@ -57,10 +57,44 @@ p {
     margin-left: auto;
   }
 
-input {
+input, td {
   height: 60px !important;
   width: 60px !important;
 }
+
+@media only screen and (max-width: 575px) {
+  input, td {
+      height: 30px !important;
+      width: 30px !important;
+  }
+
+  .col-sm-1 {
+    flex: 0 0 auto;
+    width: 25.0% !important;
+  }
+
+  .col-sm-3 {
+    flex: 0 0 auto;
+    width: 30.0% !important;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 576px) {
+  input, td {
+      height: 40px !important;
+      width: 40px !important;
+  }
+
+  .col-sm-1 {
+    flex: 0 0 auto;
+    width: 15.0% !important;
+  }
+}
+
+.container, .container-sm {
+	max-width: 350px;
+}
+
 
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
