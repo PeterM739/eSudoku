@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   currentGrid!: any[][]
   @ViewChild('successWindow', { static: true }) successWindow!: any;
   @ViewChild('failedWindow', { static: true }) failedWindow!: any;
-
+  @ViewChild('showHint', { static: true }) showHint!: any;
 
   constructor(
     private modalService: NgbModal,
@@ -36,13 +36,22 @@ export class HomeComponent implements OnInit {
 
   }
 
-  onRightClick(event: MouseEvent, row: number, col: number) {
+  onRightClick(event: MouseEvent, content: any) {
     event.preventDefault();
+    this.openHint(content)
+  }
+
+  showHintWindow(row: number, col: number) {
+    this.modalService.dismissAll()
     if (this.dataForm.get(`row${row}col${col}`)?.value == this.puzzle.solution[row][col]) {
-      this.modalService.open(this.successWindow)
+      this.openHint(this.successWindow)
     } else {
-      this.modalService.open(this.failedWindow)
+      this.openHint(this.failedWindow)
     }
+  }
+
+  openHint(content: any) {
+    this.modalService.open(content, { centered: true, size : 'sm' })
   }
 
   createNewArray() {
