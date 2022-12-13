@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { PuzzleModel } from '../models/puzzle';
@@ -15,10 +15,16 @@ export class HomeComponent implements OnInit {
   dataForm!: UntypedFormGroup;
   solution!: any[][];
   solutionForm!: UntypedFormBuilder;
-  currentGrid!: any[][]
+  currentGrid!: any[][];
+  solvedCorrectly: boolean = false;
+  solutionStatus!: number;
+  screenSize!: number;
   @ViewChild('successWindow', { static: true }) successWindow!: any;
   @ViewChild('failedWindow', { static: true }) failedWindow!: any;
   @ViewChild('showHint', { static: true }) showHint!: any;
+  @ViewChild('checkMiss', { static: true }) checkMiss!: any;
+  @ViewChild('notSolved', { static: true }) notSolved!: any;
+  @ViewChild('successfullySolved', { static: true }) successfullySolved!: any;
 
   constructor(
     private modalService: NgbModal,
@@ -33,6 +39,7 @@ export class HomeComponent implements OnInit {
       this.puzzle = res
       this.buildForm(this.puzzle.grid)
     });
+    this.screenSize = window.innerWidth;
 
   }
 
@@ -52,6 +59,10 @@ export class HomeComponent implements OnInit {
 
   openHint(content: any) {
     this.modalService.open(content, { centered: true, size : 'sm' })
+  }
+
+  openChecker(content: any) {
+    this.modalService.open(content, { centered: true, size : 'md' })
   }
 
   createNewArray() {
@@ -142,6 +153,7 @@ export class HomeComponent implements OnInit {
     this.sudokuService.getPuzzle(difficulty).subscribe(res => {
       this.puzzle = res
       this.buildForm(this.puzzle.grid)
+      this.solvedCorrectly = false
       this.cd.detectChanges();
     });
   }
@@ -149,6 +161,37 @@ export class HomeComponent implements OnInit {
   // openShowSolution(getValue: any) {
   //   this.modalService.open(getValue)
   // }
+
+  checkSolution() {
+    console.log(this.screenSize)
+    const solution = this.createNewArray()
+    this.solutionStatus = this.checkSolutionNumbers(solution, this.puzzle.solution)
+    if (this.solutionStatus == 0) {
+      this.openChecker(this.notSolved)
+    } else if (this.solutionStatus == 2) {
+      this.openChecker(this.checkMiss)
+    } else {
+      this.openChecker(this.successfullySolved)
+    }
+  }
+
+  checkSolutionNumbers(solution: any[][], check: any[][]) {
+    for (let indexRow = 0; indexRow < 9; indexRow++) {
+      for (let indexCol = 0; indexCol < 9; indexCol++) {
+        if (solution[indexRow][indexCol] == ' ') {
+          return 2
+        } else {
+          if (solution[indexRow][indexCol] != check[indexRow][indexCol]) {
+            return 0
+          } else {
+            continue
+          }
+        }
+      }
+    }
+    this.solvedCorrectly = true
+    return 1
+  }
 
   buildForm(grid: any[][]) {
     this.dataForm = this.formBuilder.group({

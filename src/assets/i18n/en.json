@@ -1,7 +1,7 @@
 {
     "ESudoku": "ESudoku",
     "CreateNewSudoku": "Create new sudoku",
-    "Check": "Check solution",
+    "CheckSolution": "Check solution",
     "Solve": "Sudoku solution",
     "SolveCheckText": "Are you sure to get the solution",
     "SelectLanguage": "Select Language",
@@ -16,6 +16,13 @@
     "Level3" : "Advanced",
     "HintSuccess" : "This number is on right place",
     "HintFailed" : "This number is not in that field",
-    "HintText" : " if you don't know if you are on right way to solution, check number you have typed in.",
-    "Hint" : "Hint:"
+    "HintText1" : " if you don't know if you are on right way to solution,",
+    "HintText2" : " check if the number you have typed in is on right place.",
+    "RightClickText" : " with right click",
+    "TouchClickText" : " press on number to",
+    "Hint" : "Hint:",
+    "FailedCheckText" : "Fill all empty fields for successfully checking",
+    "NotSolvedText" : "Sudoku is not solved correctly",
+    "SuccessfullySolvedText" : "Congratulations! your sudoku solution is correct",
+    "ShowHint" : "Show hint"
 }

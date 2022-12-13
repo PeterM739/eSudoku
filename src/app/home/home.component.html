@@ -5,7 +5,18 @@
             <br>
             <p>{{ 'InstructionText' | translate }}</p>
             <br>
-            <p><b>{{ 'Hint' | translate }}</b>{{ 'HintText' | translate }}</p>
+            <p *ngIf="screenSize >= 576">
+                <b>{{ 'Hint' | translate }}</b>
+                {{ 'HintText1' | translate }}
+                {{ 'RightClickText' | translate }}
+                {{ 'HintText2' | translate }}
+            </p>
+            <p *ngIf="screenSize < 576">
+                <b>{{ 'Hint' | translate }}</b>
+                {{ 'HintText1' | translate }}
+                {{ 'TouchClickText' | translate }}
+                {{ 'HintText2' | translate }}
+            </p>
         </div>
     </div>
     <br>
@@ -35,7 +46,7 @@
                             </div>
                             <ng-template #blank>
                                 <div (contextmenu)="onRightClick($event, showHint)"> 
-                                    <input type="text" textarea formControlName="row{{row}}col{{col}}" class="text-center border-0">
+                                    <input type="text" textarea formControlName="row{{row}}col{{col}}" class="text-center border-0" [ngClass]="{'bg-success' : solvedCorrectly}">
                                 </div>
                             </ng-template>
                             <ng-template #showHint let-modal>
@@ -52,15 +63,15 @@
     <br>
     <div class="row justify-content-center" ngbDropdown>
         <div ngbDropdown></div>
-        <button class="col-sm-2 btn btn-primary m-1" ngbDropdownToggle>{{ 'CreateNewSudoku' | translate}}</button>
+        <button class="col-8 col-md-2 btn btn-primary m-1" ngbDropdownToggle>{{ 'CreateNewSudoku' | translate}}</button>
         <div ngbDropdownMenu class="dropdown-menu">
             <p class="text-center border-bottom border-dark">{{ 'SelectDificulty' | translate }}</p>
             <a ngbDropdownItem (click)="getNewSudoku(1)">{{ 'Level1' | translate }}</a>
             <a ngbDropdownItem (click)="getNewSudoku(2)">{{ 'Level2' | translate }}</a>
             <a ngbDropdownItem (click)="getNewSudoku(3)">{{ 'Level3' | translate }}</a>
         </div>
-        <button class="col-sm-2 btn btn-primary m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
-        <!-- <button class="col-sm-2 btn btn-primary m-1" (click)="hint()">{{ 'Hint' | translate}}</button> -->
+        <button class="col-8 col-md-2 btn btn-primary m-1" (click)="checkSolution()">{{ 'CheckSolution' | translate}}</button>
+        <button class="col-8 col-md-2 btn btn-primary m-1" (click)="open(content)">{{ 'Solve' | translate}}</button>
     </div>
     <br>
     <ng-template #content let-modal>
@@ -94,6 +105,42 @@
             <div class="row">
                 <div class="col-12">
                     <i-bs name="x-circle" class="d-inline p-2 green" height="30px" width="30px"></i-bs>{{ 'HintFailed' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-right">
+            <button type="button" class="btn btn-secondary" (click)="decline()">{{ 'OK' | translate }}</button>
+        </div>
+    </ng-template>
+    <ng-template #checkMiss let-modal>
+        <div class="modal-body d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12">
+                   {{ 'FailedCheckText' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-right">
+            <button type="button" class="btn btn-secondary" (click)="decline()">{{ 'OK' | translate }}</button>
+        </div>
+    </ng-template>
+    <ng-template #notSolved let-modal>
+        <div class="modal-body d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12">
+                   {{ 'NotSolvedText' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-right">
+            <button type="button" class="btn btn-secondary" (click)="decline()">{{ 'OK' | translate }}</button>
+        </div>
+    </ng-template>
+    <ng-template #successfullySolved let-modal>
+        <div class="modal-body d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12">
+                   <i-bs name="emoji-smile" class="d-inline p-2 green" height="30px" width="30px"></i-bs>{{ 'SuccessfullySolvedText' | translate }}
                 </div>
             </div>
         </div>
