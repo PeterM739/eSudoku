@@ -9,11 +9,12 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxBootstrapIconsModule, checkCircle, xCircle } from 'ngx-bootstrap-icons';
+import { NgxBootstrapIconsModule, checkCircle, xCircle, emojiSmile } from 'ngx-bootstrap-icons';
 
 const icons = {
   checkCircle,
-  xCircle
+  xCircle,
+  emojiSmile
 }
 
 @NgModule({
