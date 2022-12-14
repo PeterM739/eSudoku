@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxBootstrapIconsModule, checkCircle, xCircle, emojiSmile } from 'ngx-bootstrap-icons';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 const icons = {
   checkCircle,
@@ -20,7 +22,7 @@ const icons = {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,8 @@ const icons = {
       }
     }),
     BrowserAnimationsModule,
+    LoadingBarRouterModule,
+    LoadingBarHttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
