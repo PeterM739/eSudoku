@@ -16,13 +16,4 @@ export class SudokuService {
 
     return this.http.get<PuzzleModel>(this.baseUrl + 'generate', { params })
   }
-
-  // public checkSolution(solutionGrid: any[][], checkGrid: any[][]) {
-  //   let params = new HttpParams();
-  //   params = params.append('solutionGrid', solutionGrid.join(', '))
-  //   params = params.append('checkGrid', checkGrid.join(', '))
-
-  //   return this.http.get<number>(this.baseUrl + 'check', { params })
-  // }
-
 }
