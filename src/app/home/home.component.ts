@@ -14,8 +14,6 @@ export class HomeComponent implements OnInit {
   puzzle!: PuzzleModel;
   dataForm!: UntypedFormGroup;
   solution!: any[][];
-  solutionForm!: UntypedFormBuilder;
-  currentGrid!: any[][];
   solvedCorrectly: boolean = false;
   solutionStatus!: number;
   screenSize!: number;
@@ -87,15 +85,6 @@ export class HomeComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  check() {
-    this.solution = this.createNewArray()
-    if (this.solution === this.puzzle.solution) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   getCssClass(row: number, col: number) {
     if (this.dataForm.get(`row${row}col${col}`)?.value != ' ') {
       return this.getBorderCssClass(row, col) + ' ' + 'bgGray'
@@ -157,10 +146,6 @@ export class HomeComponent implements OnInit {
       this.cd.detectChanges();
     });
   }
-
-  // openShowSolution(getValue: any) {
-  //   this.modalService.open(getValue)
-  // }
 
   checkSolution() {
     console.log(this.screenSize)
