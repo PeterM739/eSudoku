@@ -41,11 +41,13 @@ export class HomeComponent implements OnInit {
 
   }
 
+  //Se zažene ob desnem kliku na polje in odpre okno, ki te vpraša za namig
   onRightClick(event: MouseEvent, content: any) {
     event.preventDefault();
     this.openHint(content)
   }
 
+  //Prikaže namig za določeno polje in odpre okno, ki pove rešitev.
   showHintWindow(row: number, col: number) {
     this.modalService.dismissAll()
     if (this.dataForm.get(`row${row}col${col}`)?.value == this.puzzle.solution[row][col]) {
@@ -55,14 +57,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //Odpre okno, ki te vpraša za namig in okno, ki ti pove namig
   openHint(content: any) {
     this.modalService.open(content, { centered: true, size : 'sm' })
   }
 
+  //Odpre okno, ki te vpraša za preverjanje in ki ti pove, če je pravilno rešen
   openChecker(content: any) {
     this.modalService.open(content, { centered: true, size : 'md' })
   }
 
+  //Naredi novo dvodimenzionalno tabelo iz trenutnega stanja tabele
   createNewArray() {
     const solution = [];
     for (let indexI = 0; indexI < 9; indexI++) {
@@ -77,14 +82,17 @@ export class HomeComponent implements OnInit {
     return solution;
   }
 
+  //Odpre modal okno
   open(content: any) {
     this.modalService.open(content)
   }
 
+  //Zapre modal okno
   decline() {
     this.modalService.dismissAll();
   }
 
+  //Vrne css class za izgled določenega polja tabele
   getCssClass(row: number, col: number) {
     if (this.dataForm.get(`row${row}col${col}`)?.value != ' ') {
       return this.getBorderCssClass(row, col) + ' ' + 'bgGray'
@@ -93,6 +101,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //Vrne css class za robove za določeno polje v tabeli
   getBorderCssClass(row: number, col: number) {
     switch (row) {
       case 2:
@@ -126,18 +135,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  
   switchLang(lang: string) {
     this.translate.use(lang);
 
     localStorage.setItem("language", lang)
   }
 
+  //Prikaže končno rešitev sudokuja
   solve() {
     this.modalService.dismissAll()
     this.buildForm(this.puzzle.solution)
     this.cd.detectChanges();
   }
 
+  //Pripravi novo sudoku uganko
   getNewSudoku(difficulty: number) {
     this.sudokuService.getPuzzle(difficulty).subscribe(res => {
       this.puzzle = res
@@ -147,6 +159,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  //Preveri narejeno rešitev
   checkSolution() {
     console.log(this.screenSize)
     const solution = this.createNewArray()
@@ -160,6 +173,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /*Preverja vrednosti rešitve in rešenega sudokuja ter pove stanje:
+  2: niso vsa polja izpolnjena, 1: uspešno rešen, 0: nepravilno rešen*/
   checkSolutionNumbers(solution: any[][], check: any[][]) {
     for (let indexRow = 0; indexRow < 9; indexRow++) {
       for (let indexCol = 0; indexCol < 9; indexCol++) {
@@ -178,6 +193,7 @@ export class HomeComponent implements OnInit {
     return 1
   }
 
+  //Zdrušitev vseh 81 obrazcov za vsako polje tabele
   buildForm(grid: any[][]) {
     this.dataForm = this.formBuilder.group({
       row0col0: [grid[0][0] ?? ''],
